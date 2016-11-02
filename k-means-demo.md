@@ -14,9 +14,28 @@ I copied the given data off the web page and created a CSV file entitled 'data.t
 # import data (assume that all data in "data.txt" is stored as comma separated values)
 x <- read.csv("data.txt", header=TRUE, row.names=1)
 
+# show first 10 rows
+head(x, n=10)
+```
+
+```
+##                Per.capita.income Literacy Infant.mortality Life.expectancy
+## Brazil                     10326     90.0            23.60            75.4
+## Germany                    39650     99.0             4.08            79.4
+## Mozambique                   830     38.7            95.90            42.1
+## Australia                  43163     99.0             4.57            81.2
+## China                       5300     90.9            23.00            73.0
+## Argentina                  13308     97.2            13.40            75.3
+## United Kingdom             34105     99.0             5.01            79.4
+## South Africa               10600     82.4            44.80            49.3
+## Zambia                      1000     68.0            92.70            42.4
+## Namibia                     5249     85.0            42.30            52.9
+```
+
+```r
 # run K-Means
 km <- kmeans(x, 3, 15)
- 
+
 # print components of km
 print(km)
 ```
@@ -27,21 +46,21 @@ print(km)
 ## Cluster means:
 ##   Per.capita.income Literacy Infant.mortality Life.expectancy
 ## 1         13370.400    91.58        23.560000        68.96000
-## 2         35642.143    98.50         4.477143        80.42857
-## 3          3267.286    70.50        56.251429        58.80000
+## 2          3267.286    70.50        56.251429        58.80000
+## 3         35642.143    98.50         4.477143        80.42857
 ## 
 ## Clustering vector:
 ##         Brazil        Germany     Mozambique      Australia          China 
-##              1              2              3              2              3 
+##              1              3              2              3              2 
 ##      Argentina United Kingdom   South Africa         Zambia        Namibia 
-##              1              2              1              3              3 
+##              1              3              1              2              2 
 ##        Georgia       Pakistan          India         Turkey         Sweden 
-##              3              3              3              1              2 
+##              2              2              2              1              3 
 ##      Lithuania         Greece          Italy          Japan 
-##              1              2              2              2 
+##              1              3              3              3 
 ## 
 ## Within cluster sum of squares by cluster:
-## [1]  57626083 158883600  20109876
+## [1]  57626083  20109876 158883600
 ##  (between_SS / total_SS =  94.1 %)
 ## 
 ## Available components:
@@ -54,6 +73,7 @@ print(km)
 ```r
 # plot clusters
 plot(x, col = km$cluster)
+
 # plot centers
 points(km$centers, col = 1:2, pch = 8)
 ```
